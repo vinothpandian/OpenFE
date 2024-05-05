@@ -542,7 +542,7 @@ class TwoStageFeatureSelector:
         gbm.fit(train_x, train_y.values.ravel(), init_score=train_init,
                 eval_init_score=[val_init],
                 eval_set=[(val_x, val_y.values.ravel())],
-                callbacks=[lgb.early_stopping(50, verbose=-1)])
+                callbacks=[lgb.early_stopping(50, verbose=False)])
         results = []
         if self.stage2_metric == 'gain_importance':
             for i, imp in enumerate(gbm.feature_importances_):

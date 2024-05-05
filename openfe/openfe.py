@@ -427,7 +427,7 @@ class OpenFE:
                     X_val, y_val = data.iloc[val_index], label.iloc[val_index]
 
                     gbm.fit(X_train, y_train.values.ravel(),
-                            eval_set=[[X_val, y_val.values.ravel()]], callbacks=[lgb.early_stopping(200)])
+                            eval_set=[[X_val, y_val.values.ravel()]], callbacks=[lgb.early_stopping(200, verbose=False)])
 
                     if use_train:
                         init_scores[train_index] += (gbm.predict_proba(X_train, raw_score=True) if self.task == "classification" else \
