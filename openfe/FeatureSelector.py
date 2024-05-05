@@ -236,9 +236,9 @@ class ForwardFeatureSelector:
         if self.estimator is None:
             params = {'n_jobs': self.n_jobs, 'importance_type': 'gain', 'n_estimators': 200}
             if self.task == 'classification':
-                self.estimator = lgb.LGBMClassifier(**params, verbose=-1)
+                self.estimator = lgb.LGBMClassifier(**params, verbose=-1, device="gpu")
             else:
-                self.estimator = lgb.LGBMRegressor(**params, verbose=-1)
+                self.estimator = lgb.LGBMRegressor(**params, verbose=-1, device="gpu")
 
 
 class TwoStageFeatureSelector:
@@ -536,9 +536,9 @@ class TwoStageFeatureSelector:
         if self.metric is not None:
             params.update({"metric": self.metric})
         if self.task == 'classification':
-            gbm = lgb.LGBMClassifier(**params, verbose=-1)
+            gbm = lgb.LGBMClassifier(**params, verbose=-1, device="gpu")
         else:
-            gbm = lgb.LGBMRegressor(**params, verbose=-1)
+            gbm = lgb.LGBMRegressor(**params, verbose=-1, device="gpu")
         gbm.fit(train_x, train_y.values.ravel(), init_score=train_init,
                 eval_init_score=[val_init],
                 eval_set=[(val_x, val_y.values.ravel())],
@@ -613,9 +613,9 @@ class TwoStageFeatureSelector:
                 if self.metric is not None:
                     params.update({"metric": self.metric})
                 if self.task == 'classification':
-                    gbm = lgb.LGBMClassifier(**params, verbose=-1)
+                    gbm = lgb.LGBMClassifier(**params, verbose=-1, device="gpu")
                 else:
-                    gbm = lgb.LGBMRegressor(**params, verbose=-1)
+                    gbm = lgb.LGBMRegressor(**params, verbose=-1, device="gpu")
                 gbm.fit(train_x, train_y.values.ravel(), init_score=train_init,
                         eval_init_score=[val_init],
                         eval_set=[(val_x, val_y.values.ravel())],
