@@ -408,9 +408,9 @@ class OpenFE:
                 params = {"n_estimators": 10000, "learning_rate": 0.1, "metric": self.metric,
                           "seed": self.seed, "n_jobs": self.n_jobs}
                 if self.task == "regression":
-                    gbm = lgb.LGBMRegressor(**params)
+                    gbm = lgb.LGBMRegressor(**params, verbose=-1)
                 else:
-                    gbm = lgb.LGBMClassifier(**params)
+                    gbm = lgb.LGBMClassifier(**params, verbose=-1)
 
                 for feature in self.categorical_features:
                     data[feature] = data[feature].astype('category')
@@ -542,9 +542,9 @@ class OpenFE:
         if self.metric is not None:
             params.update({"metric": self.metric})
         if self.task == 'classification':
-            gbm = lgb.LGBMClassifier(**params)
+            gbm = lgb.LGBMClassifier(**params, verbose=-1)
         else:
-            gbm = lgb.LGBMRegressor(**params)
+            gbm = lgb.LGBMRegressor(**params, verbose=-1)
         gbm.fit(train_x, train_y.values.ravel(), init_score=train_init,
                 eval_init_score=[val_init],
                 eval_set=[(val_x, val_y.values.ravel())],
@@ -606,9 +606,9 @@ class OpenFE:
                 if self.metric is not None:
                     params.update({"metric": self.metric})
                 if self.task == 'classification':
-                    gbm = lgb.LGBMClassifier(**params)
+                    gbm = lgb.LGBMClassifier(**params, verbose=-1)
                 else:
-                    gbm = lgb.LGBMRegressor(**params)
+                    gbm = lgb.LGBMRegressor(**params, verbose=-1)
                 gbm.fit(train_x, train_y.values.ravel(), init_score=train_init,
                         eval_init_score=[val_init],
                         eval_set=[(val_x, val_y.values.ravel())],
